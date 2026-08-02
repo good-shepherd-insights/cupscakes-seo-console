@@ -67,30 +67,28 @@
   "triggers": {
     "crons": ["*/15 * * * *"],
   },
-  // This config serves local dev and Docker self-host only. All Cloudflare
-  // deployments — previews, prod, self-host — go through Alchemy
-  // (alchemy.run.ts), which provisions real resources per stage and never
-  // reads these ids.
-  //
-  // The ids below are NOT dead config: miniflare derives its on-disk storage
-  // filenames (.wrangler/state, a persistent volume in Docker self-hosts)
-  // from an HMAC of `id`/`database_id`. Changing them orphans every existing
-  // local and self-hosted database. Leave them as-is.
+  // alchemy.run.ts only covers the canonical openseo.so hosted-prod stage —
+  // self-host (this deployment) still deploys via plain `wrangler deploy`
+  // (see package.json `deploy` script), which reads these ids directly. They
+  // are this account's real resources (confirmed via `wrangler d1/kv/r2 list`),
+  // not placeholders — do not revert to the upstream template's generic
+  // "open-seo" names/ids, that pointed at resources that don't exist in this
+  // account and left the D1 binding silently broken at runtime.
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "4abd52f3f2c549ac83cc2cb4ceec8620",
+      "id": "3c41d3809a63486fbf9423f7da193012",
     },
     {
       "binding": "OAUTH_KV",
-      "id": "bd1759494309474a9b423b029967b0db",
+      "id": "8b326ceb94494a4dae8bbcd50437503e",
     },
   ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "open-seo",
-      "database_id": "37bee90a-e1aa-404f-b01e-b0d1d479bda1",
+      "database_name": "cupscakes-seo-console-d1",
+      "database_id": "1f7c66a5-fb73-4e5a-bcb0-2703ca256a23",
       "migrations_dir": "drizzle",
     },
   ],
@@ -113,7 +111,7 @@
   // ],
   "r2_buckets": [
     {
-      "bucket_name": "open-seo",
+      "bucket_name": "cupscakes-seo-console-r2",
       "binding": "R2",
     },
   ],
