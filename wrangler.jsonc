@@ -20,15 +20,21 @@
     "mode": "smart",
   },
   "workflows": [
+    // Owned by the shared seo-workflow-runner Worker, not this one — the
+    // name is account-scoped, so only one script may register it (avoids
+    // collision with other self-hosted deployments, e.g. open-seo, in the
+    // same account). This app just binds to it.
     {
       "name": "site-audit-workflow",
       "binding": "SITE_AUDIT_WORKFLOW",
       "class_name": "SiteAuditWorkflow",
+      "script_name": "seo-workflow-runner",
     },
     {
       "name": "rank-check-workflow",
       "binding": "RANK_CHECK_WORKFLOW",
       "class_name": "RankCheckWorkflow",
+      "script_name": "seo-workflow-runner",
     },
   ],
   // Durable Object backing the onboarding strategy chat (Agents SDK

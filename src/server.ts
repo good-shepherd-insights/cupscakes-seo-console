@@ -170,9 +170,8 @@ function handleFetch(
   return appFetch(request);
 }
 
-// Export Workflow classes as named exports
-export { SiteAuditWorkflow } from "./server/workflows/SiteAuditWorkflow";
-export { RankCheckWorkflow } from "./server/workflows/RankCheckWorkflow";
+// SiteAuditWorkflow and RankCheckWorkflow are owned by the shared
+// seo-workflow-runner Worker (see wrangler.jsonc), not exported here.
 // Durable Object class for the onboarding strategy chat (Agents SDK).
 export { OnboardingChatAgent } from "./server/features/onboarding/OnboardingChatAgent";
 // Durable Object class for the SAM in-app agent (Agents SDK).

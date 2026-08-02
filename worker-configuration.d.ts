@@ -20,8 +20,8 @@ declare namespace Cloudflare {
 		LOOPS_TRANSACTIONAL_RESET_PASSWORD_ID: string;
 		POSTHOG_HOST: string;
 		POSTHOG_PUBLIC_KEY: string;
-		SITE_AUDIT_WORKFLOW: Workflow<Parameters<import("./src/server").SiteAuditWorkflow['run']>[0]['payload']>;
-		RANK_CHECK_WORKFLOW: Workflow<Parameters<import("./src/server").RankCheckWorkflow['run']>[0]['payload']>;
+		SITE_AUDIT_WORKFLOW: Workflow /* SiteAuditWorkflow from seo-workflow-runner */;
+		RANK_CHECK_WORKFLOW: Workflow /* RankCheckWorkflow from seo-workflow-runner */;
 	}
 }
 interface Env extends Cloudflare.Env {}
